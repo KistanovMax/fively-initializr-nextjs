@@ -1,0 +1,7 @@
+import SignInForm from '@/components/Auth/SignInForm';
+
+const LoginPage = () => {
+  return <SignInForm />;
+};
+
+export default LoginPage;
