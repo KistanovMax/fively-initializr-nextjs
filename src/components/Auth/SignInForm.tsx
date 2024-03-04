@@ -35,7 +35,7 @@ const SignInForm = () => {
   });
 
   return (
-    <AuthFormWrapper formType="signIn">
+    <AuthFormWrapper formType="signIn" showSocial={false}>
       <Form {...form}>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <FormField

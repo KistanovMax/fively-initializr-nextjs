@@ -37,7 +37,7 @@ const SignUpForm = () => {
   });
 
   return (
-    <AuthFormWrapper formType="signUp">
+    <AuthFormWrapper formType="signUp" showSocial={false}>
       <Form {...form}>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <FormField
