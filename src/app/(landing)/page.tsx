@@ -1,7 +1,7 @@
-import { APP_NAME } from '@/constants';
+import HomePage from '@/views/Landing';
 
-const HomePage = () => {
-  return <p className="font-bold text-5xl text-center">Welcome to {APP_NAME}</p>;
+const Page = () => {
+  return <HomePage />;
 };
 
-export default HomePage;
+export default Page;

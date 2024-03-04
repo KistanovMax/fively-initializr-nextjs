@@ -2,8 +2,8 @@
 
 import * as z from 'zod';
 
+import handleActionError from '@/actions/handleActionError';
 import { api } from '@/lib/api';
-import { handleApiError } from '@/lib/api/error';
 import { signIn, signOut } from '@/lib/auth';
 import { DEFAULT_LOGIN_REDIRECT } from '@/lib/routes';
 import { LoginSchema, RegisterSchema } from '@/schemas';
@@ -20,7 +20,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   try {
     await signIn('credentials', { email, password, redirectTo: DEFAULT_LOGIN_REDIRECT });
   } catch (error) {
-    return handleApiError(error);
+    return handleActionError(error);
   }
 };
 
@@ -36,7 +36,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   try {
     await api.post('/auth/register', { email, password, firstName, lastName });
   } catch (error) {
-    return handleApiError(error);
+    return handleActionError(error);
   }
 
   return login({ email, password });

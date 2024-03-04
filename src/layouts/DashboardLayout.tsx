@@ -2,28 +2,24 @@
 
 import React, { ReactNode } from 'react';
 
-import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
-import { DashboardIcon, ExitIcon } from '@radix-ui/react-icons';
-import moment from 'moment';
+import { ExitIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { logout } from '@/actions/auth';
 import ThemeModeToggle from '@/components/ThemeModeToggle';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { APP_NAME } from '@/constants';
 import { useAccount } from '@/providers/AccountProvider';
 
-const LandingLayout = ({ children }: { children: ReactNode }) => {
-  const router = useRouter();
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { me } = useAccount();
 
   return (
@@ -37,11 +33,7 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
           <div className="flex items-center gap-2">
             <ThemeModeToggle />
 
-            {!me ? (
-              <Button variant="ghost" onClick={() => router.push('/login')}>
-                Login
-              </Button>
-            ) : (
+            {!!me && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="w-9 h-9 hover:cursor-pointer">
@@ -56,12 +48,6 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="hover:cursor-pointer">
-                    <DashboardIcon className="mr-2 h-5 w-5" />
-
-                    <span>Dashboard</span>
-                  </DropdownMenuItem>
-
                   <DropdownMenuItem onClick={() => logout()} className="hover:cursor-pointer">
                     <ExitIcon className="mr-2 h-5 w-5" />
 
@@ -75,16 +61,8 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
       </header>
 
       <div className="container py-6 h-full">{children}</div>
-
-      <footer className="border-t">
-        <div className="container py-3">
-          <p className="text-xs text-center">
-            © {moment().format('YYYY')} {APP_NAME}. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
 
-export default LandingLayout;
+export default DashboardLayout;
